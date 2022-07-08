@@ -3,7 +3,6 @@
 #include<stdlib.h>
 
 #include"simptypes.h"
-#include"internal.h"
 
 int filestats_file_count_lines(char *file_path)
 {
