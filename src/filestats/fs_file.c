@@ -11,21 +11,49 @@ int filestats_file_count_lines(char *file_path)
 	/* check if file Exists */
 	if (file == NULL)
 	{
-		fprintf(stderr, "File [%s] don't exist's\n", file_path);
+		printf("----\n"
+			   "File: %s\n"
+			   "Error: File does not exist's\n"
+			   "----\n",
+			   file_path);
+
 		return -1; /* FILE_NOT_EXIST */
 	}
 
-	/* count the lines of the File */
-	uint amountLines = 0; /* counter for file lienes */
+	/* counters for Stats */
+	uint amount_lines = 0; /* counter for file lienes */
+	uint amount_characters = 0;
+	uint amount_spaces = 0;
 
 	uchar32 character;
 	while ((character = fgetc(file)) != EOF)
 	{
 		if (character == '\n')
-			amountLines++;
+		{
+			amount_lines++;
+		}
+
+		if (character == ' ')
+			amount_spaces++;
+
+		amount_characters++;
 	}
+
+	/* print the file stats */
+	printf("----\n"
+		   "File: %s\n"
+		   "lines: %d\n"
+		   "characters: %d\n"
+		   "spaces: %d\n"
+		   "characters without spaces: %d\n"
+		   "----\n",
+		   file_path,
+		   amount_lines,
+		   amount_characters,
+		   amount_spaces,
+		   amount_characters - amount_spaces);
 
 	fclose(file); /* close the file */
 
-	return amountLines;
+	return amount_lines;
 }
